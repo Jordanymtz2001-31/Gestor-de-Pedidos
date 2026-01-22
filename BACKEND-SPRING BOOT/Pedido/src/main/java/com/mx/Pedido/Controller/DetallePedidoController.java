@@ -20,7 +20,7 @@ import com.mx.Pedido.Services.DetallePedidoService;
 
 
 @RestController // Indicamos que esta clase es un controlador REST Y indica que los metodos retornan JSON
-@RequestMapping("/detalle") // Ruta base para el controlador
+@RequestMapping("pedido/detalle") // Ruta base para el controlador
 public class DetallePedidoController {
 	
 	@Autowired //Inyectamos las dependencias

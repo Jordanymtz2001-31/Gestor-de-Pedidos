@@ -18,7 +18,7 @@ import com.mx.Pedido.Entity.Pedido;
 import com.mx.Pedido.Services.PedidoService;
 
 @RestController //Indicamos que esta clase es un controlador REST Y indica que los metodos retornan JSON
-@RequestMapping("/pedido") // Ruta base para el controlador
+@RequestMapping("/pedido/pedido") // Ruta base para el controlador
 public class PedidoController {
 	
 	@Autowired // Inyeccion de dependencias
