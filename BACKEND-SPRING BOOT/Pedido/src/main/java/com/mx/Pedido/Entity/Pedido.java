@@ -36,7 +36,7 @@ public class Pedido {
 	
 	@Enumerated(EnumType.STRING) // Indicamos que se guarde como String en la BD
 	@Column(name = "ESTATUS")
-	private EEstado ESTATUS = EEstado.CREADO; // Estado inicial del pedido
+	private EEstado estatus = EEstado.CREADO; // Estado inicial del pedido
 	
 	@Column(name = "CLIENTE_ID")
 	private int clienteId;

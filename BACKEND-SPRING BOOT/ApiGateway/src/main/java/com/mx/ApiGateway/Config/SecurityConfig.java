@@ -13,48 +13,72 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.mx.ApiGateway.Entity.Users;
 import com.mx.ApiGateway.Service.UserService;
+import java.util.List;
 
-@Configuration  // ← Registra esta clase como bean de configuración de Spring
-@EnableWebSecurity  // ← Habilita Spring Security WebFlux para Gateway (NO @EnableWebFluxSecurity)
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
-    // ⭐ ENCRIPTADOR DE PASSWORD - BCrypt (estándar industria)
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();  // Hashea passwords (123 → $2a$10$...)
+        return new BCryptPasswordEncoder();
     }
 
-    // ⭐ PUENTE Spring Security ↔ Base de Datos
     @Bean
     public UserDetailsService userDetailsService(UserService userService) {
-        return username -> {  // Spring llama esto AUTOMÁTICAMENTE en cada Basic Auth
-            Users user = userService.findByUsername(username)  // SELECT * FROM users WHERE username=?
+        return username -> {
+            Users user = userService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no Encontrado"));
-            return User.builder()  // Convierte tu entidad Users → Spring Security User
+            return User.builder()
                 .username(user.getUsername())
-                .password(user.getPassword())  // Password HASHEADO
-                .roles(user.getRol().name())   // "ADMIN" → ROLE_ADMIN automáticamente
+                .password(user.getPassword())
+                .roles(user.getRol().name())
                 .build();
         };
     }
     
-    // ⭐ CADENA PRINCIPAL DE FILTROS - CORAZÓN DE LA SEGURIDAD
+    // ⭐ CORS CONFIGURATION - ANTES DE authorizeHttpRequests
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOriginPatterns(List.of("http://localhost:4200"));  // Angular
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));  // Authorization, Content-Type, etc
+        config.setAllowCredentials(true);        // Basic Auth cookies
+        config.setMaxAge(3600L);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            // ⭐ CORS PRIMERO - ANTES DE authorizeHttpRequests
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            
             .csrf(csrf -> csrf.disable())
+            
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
+                // ⭐ OPTIONS LIBRES para preflight (Angular)
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                
+                // Reglas originales
+                //IMPORTANTE: Si importa el ORDEN
                 .requestMatchers(HttpMethod.POST, "/cliente/**", "/pedido/**", "/producto/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/cliente/**", "/pedido/**", "/producto/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/cliente/**", "/pedido/**", "/producto/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/cliente/**", "/pedido/**", "/producto/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
             )
-            .httpBasic(Customizer.withDefaults())  // ⭐ Basic Auth (reemplaza JWT)
+            .httpBasic(Customizer.withDefaults())
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(exceptions -> exceptions
@@ -87,4 +111,3 @@ public class SecurityConfig {
         return http.build();
     }
 }
-

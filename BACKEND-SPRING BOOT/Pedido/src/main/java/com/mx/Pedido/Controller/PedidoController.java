@@ -79,7 +79,8 @@ public class PedidoController {
 		}
 	}
 	
-	@GetMapping("/detalle/{idPedido}")
+	//Endpoint para listar detalles de un Pedido
+	@GetMapping("/listarDetalleXPediod/{idPedido}")
 	public ResponseEntity<Pedido> ObtenerDetallesDePedido(@PathVariable Integer idPedido){
 		Pedido pedidoConDetalles = service.obtenerPedidoConDetalles(idPedido); // Obtenemos el pedido con detalles
 		return ResponseEntity.ok(pedidoConDetalles);

@@ -1,1 +1,30 @@
-<p>guardar-p works!</p>
+    <div class="guardar-cliente-container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Nuevo Pedido</h1>
+                <p class="subtitle">Completa el formulario para registrar un nuevo Pedido</p>
+            </div>
+            
+            <form class="cliente-form">
+                <div class="form-row">
+                    <label class="form-label fw-bold">Cliente</label>
+                    <select class="form-select" [(ngModel)]="Pedido.clienteId" name="clienteId" required>
+                        <option value="">Selecciona un cliente...</option>
+                        @for (cliente of clientes; track cliente.idCliente) {
+                            <option [value]="cliente.idCliente"> {{ cliente.nombre }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label fw-bold">Total</label>
+                    <input type="number" class="form-control" [(ngModel)]="Pedido.total" name="total"required />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" (click)="btnGuardar()">
+                        <span>✓ Guardar Cliente</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+

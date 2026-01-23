@@ -1,39 +1,39 @@
 <div class="container">
     <div class="card border-info mb-3 mt-1">
         <div class="card-header">
-            <h2 class="text-center">LISTA DE CLIENTES</h2>
+            <h2 class="text-center">LISTA DE PRODUCTOS</h2>
             <div class="container">
 
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">ID CLIENTE</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">NOMBRE</th>
-                                <th scope="col">EMAIL</th>
-                                <th scope="col">TELEFONO</th>
+                                <th scope="col">PRECIO</th>
+                                <th scope="col">STOCK</th>
                                 <th scope="col">ESTATUS</th>
                                 <th scope="col">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for (cliente of clientes; track cliente.idCliente) {
+                            @for (producto of productos; track producto.idProducto) {
                             <tr>
-                                <td>{{cliente.idCliente}}</td>
-                                <td>{{cliente.nombre}}</td>
-                                <td>{{cliente.email}}</td>
-                                <td>{{cliente.telefono}}</td>
-                                <td>{{cliente.estatus}}</td>
+                                <td>{{producto.idProducto}}</td>
+                                <td>{{producto.nombre}}</td>
+                                <td>${{producto.precio}}</td>
+                                <td>{{producto.stock}}</td>
+                                <td>{{producto.estatus}}</td>
                                 <td>
                                     <div class="nav-item dropdown">
-                                        <button class="nav-link dropdown-toggle" type="button" (click)="toggleMenu('acciones-' + cliente.idCliente)">
+                                        <button class="nav-link dropdown-toggle" type="button" (click)="toggleMenu('acciones-' + producto.idProducto)">
                                             Opciones
                                         </button>
-                                        <div class="dropdown-menu" [class.show]="isMenuOpen('acciones-' + cliente.idCliente)">
-                                            <a class="dropdown-item" (click)="btnEditar(cliente.idCliente)">
+                                        <div class="dropdown-menu" [class.show]="isMenuOpen('acciones-' + producto.idProducto)">
+                                            <a class="dropdown-item" (click)="btnEditar(producto.idProducto)">
                                                 <span class="icon">✏️</span> Editar
                                             </a>
-                                            <a class="dropdown-item" (click)="btnEliminar(cliente.idCliente)">
+                                            <a class="dropdown-item" (click)="btnEliminar(producto.idProducto)">
                                                 <span class="icon">🗑️</span> Eliminar
                                             </a>
                                         </div>
@@ -48,5 +48,4 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+

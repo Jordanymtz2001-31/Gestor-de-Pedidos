@@ -1,0 +1,41 @@
+    <div class="guardar-cliente-container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Editar Cliente</h1>
+                <p class="subtitle">Completa el formulario para editar el Cliente/p>
+            </div>
+            <form class="cliente-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre"  [(ngModel)]="cliente.nombre" required placeholder="Ingresa el nombre">
+                    </div>
+                </div>
+                <div class="form-row form-row-two">
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="number" id="telefono"name="telefono"  [(ngModel)]="cliente.telefono" required placeholder="Ej: 1234567890">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email"  [(ngModel)]="cliente.email" required placeholder="Ej: ejemplo.200@gmail">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-select form-select-sm"[(ngModel)]="cliente.estatus" name="estatus" required>
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
+                            </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" (click)="btnEditarCliente()">
+                        <span>✓ Editar Cliente</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+

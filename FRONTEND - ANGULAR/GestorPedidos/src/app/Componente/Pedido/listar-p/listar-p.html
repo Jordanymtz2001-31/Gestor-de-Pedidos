@@ -1,1 +1,125 @@
-<p>listar-p works!</p>
+<div class="container">
+    <div class="card border-info mb-3 mt-1">
+        <div class="card-header">
+            <h2 class="text-center">LISTA DE PEDIDOS</h2>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">FECHA</th>
+                        <th scope="col">TOTAL</th>
+                        <th scope="col">ESTATUS</th>
+                        <th scope="col">ID CLIENTE</th>
+                        <th scope="col">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (pedido of pedidos; track pedido.idPedido) {
+                    <tr>
+                        <td>{{pedido.idPedido}}</td>
+                        <td>{{pedido.fecha}}</td>
+                        <td>${{pedido.total}}</td>
+                        <td> <!--SELECT PARA CAMBIAR ESTATUS -->
+                            <select class="form-select form-select-sm"[(ngModel)]="pedido.estatus" 
+                                    (change)="editarEstatus(pedido, pedido.estatus)">
+                                <option value="CREADO">CREADO</option>
+                                <option value="CONFIRMADO">CONFIRMADO</option>
+                                <option value="CANCELADO">CANCELADO</option>
+                                <option value="ENTREGADO">ENTREGADO</option>
+                            </select>
+                        </td>
+                        <td>{{pedido.clienteId}}</td>
+                        <td>
+                            <!-- Tu dropdown existente -->
+                            <div class="nav-item dropdown d-inline-block">
+                                <button class="nav-link dropdown-toggle btn btn-secondary btn-sm" 
+                                        type="button" (click)="toggleMenu('acciones-' + pedido.idPedido)">
+                                    Opciones
+                                </button>
+                                <div class="dropdown-menu" [class.show]="isMenuOpen('acciones-' + pedido.idPedido)">
+                                    <a class="dropdown-item" (click)="btnDetalles(pedido)">
+                                        <span class="icon">✏️</span> Detalles
+                                    </a>
+                                    <a class="dropdown-item" (click)="btnEliminar(pedido.idPedido)">
+                                        <span class="icon">🗑️</span> Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="6" style="text-align: center;">No existen registros</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL DE DETALLES -->
+    <div class="modal-backdrop" *ngIf="pedidoSeleccionado" (click)="cerrarDetalle()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles Pedido #{{ pedidoSeleccionado.idPedido }}</h5>
+                <button class="btn-close" (click)="cerrarDetalle()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Fecha:</strong> {{ pedidoSeleccionado.fecha | date:'dd/MM/yyyy' }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Estatus:</strong> 
+                        <span class="badge bg-primary">{{ pedidoSeleccionado.estatus }}</span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>ID Cliente:</strong> {{ pedidoSeleccionado.clienteId }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Total:</strong> ${{ pedidoSeleccionado.total | number:'1.2-2' }}
+                    </div>
+                </div>
+
+                <!-- Tabla de detalles -->
+                <h6>DETALLES:</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID Detalle</th>
+                                <th>Producto ID</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unit.</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (detalle of pedidoSeleccionado.detalles; track detalle.idDetallePedido) {
+                            <tr>
+                                <td>{{ detalle.idDetallePedido }}</td>
+                                <td>{{ detalle.productoId }}</td>
+                                <td>{{ detalle.cantidad }}</td>
+                                <td>${{ detalle.precioUnitario | number:'1.2-2' }}</td>
+                                <td>${{ (detalle.cantidad * detalle.precioUnitario) | number:'1.2-2' }}</td>
+                            </tr>
+                            } @empty {
+                            <tr>
+                                <td colspan="5" class="text-center">Sin detalles</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="cerrarDetalle()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

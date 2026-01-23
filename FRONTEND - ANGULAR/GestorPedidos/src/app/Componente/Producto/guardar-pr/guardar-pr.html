@@ -1,0 +1,43 @@
+    <div class="guardar-cliente-container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Nuevo Producto</h1>
+                <p class="subtitle">Completa el formulario para registrar un nuevo producto</p>
+            </div>
+            
+            <form class="cliente-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre"  [(ngModel)]="Producto.nombre" required placeholder="Ingresa el nombre">
+                    </div>
+                </div>
+                <div class="form-row form-row-two">
+                    <div class="form-group">
+                        <label for="precio">Precio</label>
+                        <input type="number" id="cantidad" name="precio"  [(ngModel)]="Producto.precio" required placeholder="Ingresa el precio">
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stok</label>
+                        <input type="number" id="stock" name="stock" [(ngModel)]="Producto.stock" required placeholder="Ingresa el stock">
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Estatus</label>
+                        <input type="number" id="precio"name="precio"  [(ngModel)]="Producto.precio" required placeholder="$15">
+                    </div>
+                    <div>
+                        <select class="form-select form-select-sm"[(ngModel)]="Producto.estatus" name="estatus" required>
+                            <option value="DISPONIBLE">DISPONIBLE</option>
+                            <option value="INDISPONIBLE">INDISPONIBLE</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" (click)="btnGuardardProducto()">
+                        <span>✓ Guardar Producto</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
