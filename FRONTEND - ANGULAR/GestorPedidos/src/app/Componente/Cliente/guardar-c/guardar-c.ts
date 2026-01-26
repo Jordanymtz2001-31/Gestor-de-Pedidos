@@ -44,7 +44,7 @@ export class GuardarC implements OnInit{
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: err.error?.error || 'Error desconocido', //Mostramos el error del backend
+          text: err.error?.mensaje || 'Error desconocido', //Mostramos el error del backend
           confirmButtonText: 'Aceptar'
         });
       }

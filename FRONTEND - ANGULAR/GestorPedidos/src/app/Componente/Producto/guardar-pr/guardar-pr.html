@@ -21,11 +21,8 @@
                         <label for="stock">Stok</label>
                         <input type="number" id="stock" name="stock" [(ngModel)]="Producto.stock" required placeholder="Ingresa el stock">
                     </div>
-                    <div class="form-group">
-                        <label for="precio">Estatus</label>
-                        <input type="number" id="precio"name="precio"  [(ngModel)]="Producto.precio" required placeholder="$15">
-                    </div>
                     <div>
+                        <label for="precio">Estatus</label>
                         <select class="form-select form-select-sm"[(ngModel)]="Producto.estatus" name="estatus" required>
                             <option value="DISPONIBLE">DISPONIBLE</option>
                             <option value="INDISPONIBLE">INDISPONIBLE</option>

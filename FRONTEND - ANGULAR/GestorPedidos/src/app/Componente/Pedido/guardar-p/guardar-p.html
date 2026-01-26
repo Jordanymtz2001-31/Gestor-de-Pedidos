@@ -1,30 +1,91 @@
-    <div class="guardar-cliente-container">
-        <div class="card">
-            <div class="card-header">
-                <h1>Nuevo Pedido</h1>
-                <p class="subtitle">Completa el formulario para registrar un nuevo Pedido</p>
-            </div>
-            
-            <form class="cliente-form">
-                <div class="form-row">
-                    <label class="form-label fw-bold">Cliente</label>
-                    <select class="form-select" [(ngModel)]="Pedido.clienteId" name="clienteId" required>
-                        <option value="">Selecciona un cliente...</option>
-                        @for (cliente of clientes; track cliente.idCliente) {
-                            <option [value]="cliente.idCliente"> {{ cliente.nombre }}</option>
-                        }
-                    </select>
-                </div>
-                <div class="form-row">
-                    <label class="form-label fw-bold">Total</label>
-                    <input type="number" class="form-control" [(ngModel)]="Pedido.total" name="total"required />
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" (click)="btnGuardar()">
-                        <span>✓ Guardar Cliente</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+<div class="guardar-cliente-container">
+    <div class="card">
+    <div class="card-header">
+        <h1>Nuevo Pedido</h1>
+        <p class="subtitle">Completa el formulario para registrar un nuevo Pedido</p>
     </div>
 
+    <form class="cliente-form">
+
+        <!-- CLIENTE -->
+        <div class="form-row">
+            <label class="form-label fw-bold">Cliente</label>
+            <select class="form-select" [(ngModel)]="Pedido.clienteId" name="clienteId" required>
+                <option value="">Selecciona un cliente...</option>
+                @for (cliente of clientes; track cliente.idCliente) {
+                <option [value]="cliente.idCliente">{{ cliente.nombre }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- DETALLE NUEVO -->
+        <hr>
+
+        <div class="form-row">
+            <label class="form-label fw-bold">Producto</label>
+            <select class="form-select" [(ngModel)]="NuevoDetalle.productoId" name="productoId" required>
+                <option value="">Selecciona un producto...</option>
+                    @for (producto of productos; track producto.idProducto) {
+                    <option [value]="producto.idProducto">
+                    {{ producto.nombre }} - ${{ producto.precio }}
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label class="form-label fw-bold">Cantidad</label>
+            <input type="number" class="form-control" [(ngModel)]="NuevoDetalle.cantidad" name="cantidad" />
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="agregarDetalle()">
+            + Agregar detalle
+            </button>
+        </div>
+
+        <!-- TABLA DE DETALLES -->
+        <table class="table mt-3" *ngIf="Pedido.detalles.length > 0">
+            <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio unit.</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @for (d of Pedido.detalles; track d.productoId) {
+                <tr>
+                <td>{{ d.productoId }}</td> <!-- luego puedes mapear a nombre -->
+                <td>{{ d.cantidad }}</td>
+                <td>{{ d.precioUnitario }}</td>
+                <td>{{ d.cantidad * d.precioUnitario }}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="eliminarDetalle(d)">
+                    X
+                    </button>
+                </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <!-- TOTAL -->
+        <div class="form-row">
+            <label class="form-label fw-bold">Total</label>
+            <input type="number" class="form-control"
+                [(ngModel)]="Pedido.total" name="total" readonly />
+        </div>
+
+        <!-- BOTÓN GUARDAR -->
+        <div class="form-actions mt-3">
+            <button type="button" class="btn btn-primary" (click)="btnGuardar()">
+            <span>✓ Guardar Pedido</span>
+            </button>
+        </div>
+
+        </form>
+    </div>
+</div>

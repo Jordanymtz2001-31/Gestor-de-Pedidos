@@ -39,7 +39,9 @@ export class ServidorAuth {
 
   // Verificar login (usa estado interno)
   isLogeo(): boolean {
-    return this.isLogged;  //Más confiable que checar credenciales
+    //return this.isLogged;  //Más confiable que checar credenciales
+    // Verificar que username Y password existan (más confiable)
+    return !!(this.username && this.password);
   }
 
   // Método público para componentes (opcional)

@@ -1,20 +1,20 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { Pedido } from '../../../Entidad/pedido';
 import { ServidorP } from '../../../Servidor/PedidoYDetalles/servidorP';
+import { Pedido } from '../../../Entidad/pedido';
 import { CommonModule } from '@angular/common';
-import { Cliente } from '../../../Entidad/cliente';
 import { ServidorC } from '../../../Servidor/Cliente/servidorC';
+import { Cliente } from '../../../Entidad/cliente';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-listar-p',
+  selector: 'app-listar-pc',
   imports: [FormsModule, CommonModule],
-  templateUrl: './listar-p.html',
-  styleUrl: './listar-p.css',
+  templateUrl: './listar-pc.html',
+  styleUrl: './listar-pc.css',
 })
-export class ListarP implements OnInit {
+export class ListarPC implements OnInit {
 
    //Set para controlar múltiples menús abiertos simultáneamente
   //Puede contener varios valores de tipo string que representan los menús abiertos
@@ -59,7 +59,7 @@ export class ListarP implements OnInit {
       });
 
       //Tanto cuando se inicie el componente, se cargan los pedidos
-      this.servicioP.ListarPedidos().subscribe({
+      this.servicioP.ListarPedidosCancelados().subscribe({
         next: (data) => { //data es la respuesta del servidor
           this.pedidos = data; //Asignamos los datos a la variable pedidos
         },

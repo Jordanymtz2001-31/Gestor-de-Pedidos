@@ -72,6 +72,7 @@ public class SecurityConfig {
                 
                 // Reglas originales
                 //IMPORTANTE: Si importa el ORDEN
+                .requestMatchers("/auth/**").permitAll() //Rutas publicas que permitAll indica que entra sin autorizacion
                 .requestMatchers(HttpMethod.POST, "/cliente/**", "/pedido/**", "/producto/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/cliente/**", "/pedido/**", "/producto/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/cliente/**", "/pedido/**", "/producto/**").hasRole("ADMIN")

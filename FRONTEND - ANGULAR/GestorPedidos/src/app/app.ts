@@ -57,6 +57,10 @@ export class App {
     this.router.navigate(['listar-pedidos']);
   }
 
+  listarPedidosCancelados(){
+    this.router.navigate(['listar-pedidos-cancelados']);
+  }
+
   //GUARDAR+--------------------------------------------------------------------------------------------------------------------------------
 
   guardarProductos() {
@@ -65,6 +69,10 @@ export class App {
 
   guardarClientes() {
     this.router.navigate(['guardar-cliente']);
+  }
+
+  guardarPedido(){
+    this.router.navigate(['guardar-pedido']);
   }
 
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Pedido } from '../../Entidad/pedido';
 import { Observable } from 'rxjs/internal/Observable';
 import { DetallePedido } from '../../Entidad/detalle-pedido';
+import { PedidoGuardarDto } from '../../Entidad/PedidoGuardarDto';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,8 @@ export class ServidorP {
   }
 
   //Metodo para guardar un pedido
-  guardarPedido(pedido: Pedido): Observable<any> { //Any para evitar errores y capturar todo tipo de respuestas
-    return this.http.post<Pedido>(this.url + 'pedido/pedido/guardar', pedido, {observe: 'response', responseType: 'json'}); // Retornamos el pedido guardado
+  guardarPedido(pedido: PedidoGuardarDto): Observable<any> { //Any para evitar errores y capturar todo tipo de respuestas
+    return this.http.post<PedidoGuardarDto>(this.url + 'pedido/pedido/guardar', pedido, {observe: 'response', responseType: 'json'}); // Retornamos el pedido guardado
   }
 
   //Metodo para actualizar un pedido
@@ -54,6 +55,11 @@ export class ServidorP {
   //Metodo para listar detalle por pedido
   ListarDetallesPorPedido(id: number): Observable<any> { 
     return this.http.get<any>(this.url + 'pedido/pedido/listarDetalleXPediod/' + id); // Retornamos los detalles
+  }
+
+  //Metodo para listar pedidos Cancelados
+  ListarPedidosCancelados(): Observable<Pedido[]> { 
+    return this.http.get<Pedido[]>(this.url + 'pedido/pedido/listar/cancelados'); // Retornamos los pedidos
   }
 
   //METODOS PARA SOLO DE DETALLE ------------------------------------------------------------------------------------------------------------------

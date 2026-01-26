@@ -46,8 +46,18 @@ export class ListarPr implements OnInit {
         next: (data) => { //data es la respuesta del servidor
           this.productos = data; //Asignamos los datos a la variable productos
         },
-        error: (err) => { console.error('Error al cargar los productos', err);
-        }
+      error: (err) => { 
+        const mensaje = err.error?.mensaje || err.error?.error || 'Ocurrio un error al cargar los clientes';
+        console.error(mensaje);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de auntenticación',
+          text: mensaje,
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          this.router.navigate(['login']);
+        })
+      }
       })
     }
   

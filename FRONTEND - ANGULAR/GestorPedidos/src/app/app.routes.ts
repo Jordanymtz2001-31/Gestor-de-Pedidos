@@ -7,6 +7,8 @@ import { GuardarC } from './Componente/Cliente/guardar-c/guardar-c';
 import { EditarPr } from './Componente/Producto/editar-pr/editar-pr';
 import { EditarC } from './Componente/Cliente/editar-c/editar-c';
 import { Login } from './Componente/Loging/login/login';
+import { GuardarP } from './Componente/Pedido/guardar-p/guardar-p';
+import { ListarPC } from './Componente/Pedido/listar-pc/listar-pc';
 
 export const routes: Routes = [
 
@@ -21,12 +23,13 @@ export const routes: Routes = [
     {path: 'listar-productos', component: ListarPr},
     {path: 'listar-clientes', component: ListasC},
     {path: 'listar-pedidos', component: ListarP},
+    {path: 'listar-pedidos-cancelados', component: ListarPC},
     
 
     //GUARDAR------------------------------------------------------------------------------------------------------------------
     {path: 'guardar-producto', component: GuardarPr},
     {path: 'guardar-cliente', component: GuardarC},
-    {path: 'guardar-pedido', component: ListarP},
+    {path: 'guardar-pedido', component: GuardarP},
 
     //EDITAR------------------------------------------------------------------------------------------------------------------
     {path: 'editar-producto/:id', component: EditarPr},
