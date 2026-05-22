@@ -21,14 +21,14 @@ export class GuardarPr implements OnInit{
   // Array de estados posibles
   estadosPosibles = ['DISPONIBLE', 'INDISPONIBLE'];
 
-  //Metodo de OnInit
+  //Metodo de OnInit que significa que se ejecuta al iniciar la aplicacion
   ngOnInit(): void {
       
   }
   
   //Boton de Guardar
   btnGuardardProducto(): void{
-    this.servicePr.guardarProducto(this.Producto).subscribe({
+    this.servicePr.guardarProducto(this.Producto).subscribe({ //El subscribe es para capturar la respuesta
       next: (response: any) =>{
       Swal.fire({
         title: 'Guardado',

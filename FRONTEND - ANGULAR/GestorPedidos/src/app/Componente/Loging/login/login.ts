@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  selector: 'app-login', // Nombre del componente
+  imports: [CommonModule, FormsModule], // Importar modulos
+  templateUrl: './login.html', // Plantilla declarativa
+  styleUrl: './login.css', // Hoja de estilos
 })
 export class Login {
 
@@ -21,8 +21,7 @@ export class Login {
 
   //Constructor para inyectar las dependencias
   constructor(
-    private auth: ServidorAuth, private ServiceCl: ServidorC, private router: Router
-  ) {}
+    private auth: ServidorAuth, private ServiceCl: ServidorC, private router: Router) {}
 
   onSubmit() {
     // Validar que los campos no esten vacios

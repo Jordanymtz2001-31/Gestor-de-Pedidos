@@ -14,6 +14,7 @@ export class ServidorPr {
   url = 'http://localhost:9000/'; // Creamos la url del servidor
 
   //Observable nos permite observar todas las respuestas del servidor
+  //Podemos o no usas el Observable para tipar las respuestas
   //LA MEJOR PRACTICA ES USAR HttpResponse<T> para tipar la respuesta
 
   // Método para obtener los Productos
@@ -27,7 +28,7 @@ export class ServidorPr {
   }
 
   //Metodo para actualizar un productos
-  actualizarProducto(producto: Producto): Observable<HttpResponse<Producto>> { //Colocamos HttpResponse<T> para tipar la respuesta
+  actualizarProducto(producto: Producto): Observable<HttpResponse<Producto>> { //Con HttpResponse podemos capturar el codigo de respuesta (Estatus, Body, Cabezera)
     return this.http.put<Producto>(this.url + 'producto/editar', producto, {observe: 'response'}); // Retornamos el producto actualizado
   }
 

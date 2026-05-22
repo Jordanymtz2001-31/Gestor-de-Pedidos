@@ -6,6 +6,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authBasicInterceptor } from './Auth/interceptor';
 import { FormsModule } from '@angular/forms';
 
+//Este es archivo nosotros 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(), // Manejador de errores globales

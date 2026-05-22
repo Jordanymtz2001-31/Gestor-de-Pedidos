@@ -1,0 +1,4 @@
+{
+    "djlint.showInstallError": false,
+    "java.compile.nullAnalysis.mode": "automatic"
+}

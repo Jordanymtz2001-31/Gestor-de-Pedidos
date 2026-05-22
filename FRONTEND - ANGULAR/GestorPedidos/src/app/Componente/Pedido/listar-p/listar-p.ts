@@ -27,7 +27,7 @@ export class ListarP implements OnInit {
   pedidoSeleccionado?: Pedido;
 
   //Creamos variables para almacenar los datos que vienen del servidor
-  pedidos!: Pedido[];
+  pedidos!: Pedido[]; //el !
   pedido = new Pedido(); //Inicializamos un objeto pedido para usarlor
   // Array de estados posibles
   estadosPosibles = ['CREADO', 'CONFIRMADO', 'CANCELADO', 'ENTREGADO'];

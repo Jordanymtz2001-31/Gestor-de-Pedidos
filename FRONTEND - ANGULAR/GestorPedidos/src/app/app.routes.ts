@@ -12,9 +12,13 @@ import { ListarPC } from './Componente/Pedido/listar-pc/listar-pc';
 
 export const routes: Routes = [
 
+    // En este archivo se definen las rutas de la aplicación
+
     // Ruta principal VACIÍA → LOGIN
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-
+    
+    /*Ocupamos component solo para rutas simples y aplicaciones simples, tambien en donde el usuario siempre estara viendo todo*/
+    
     // Login público
     { path: 'login', component: Login },
     //Aqui definimos las rutas de la aplicación que utilizaremos en la navegación entre componentes de la aplicación
